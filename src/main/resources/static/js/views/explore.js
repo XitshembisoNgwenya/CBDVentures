@@ -9,10 +9,12 @@ const SORTS = [
   { key: 'name', label: 'A–Z' }
 ];
 
-const CATEGORY_ICONS = { food: 'food', banking: 'wallet', fun: 'event' };
+const CATEGORY_ICONS = { food: 'food', banking: 'wallet', grooming: 'salon', fun: 'event' };
 const CATEGORY_ALIASES = {
   'food-drinks': 'food',
   restaurants: 'food',
+  beauty: 'grooming',
+  salons: 'grooming',
   events: 'fun'
 };
 
