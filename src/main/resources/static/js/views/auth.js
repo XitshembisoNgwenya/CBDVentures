@@ -4,15 +4,9 @@
  * reference design, and all three talk to the real API — registration returns a
  * code, verification returns the JWT.
  */
-import { api, session } from '../api.js';
-import { icon, toast, openModal, closeModal, escapeHtml } from '../ui.js';
-import { setState } from '../state.js';
-
-const DEMO_ACCOUNTS = [
-  { label: 'User', email: 'keziah@student.richfield.ac.za', password: 'Password123!' },
-  { label: 'Owner', email: 'thabo@kotakingdom.co.za', password: 'Password123!' },
-  { label: 'Admin', email: 'admin@cbdventures.co.za', password: 'Admin123!' }
-];
+import { api, session } from '../api.js?v=20261110-3';
+import { icon, toast, openModal, closeModal, escapeHtml } from '../ui.js?v=20261110-3';
+import { setState } from '../state.js?v=20261110-3';
 
 /** Where to go after a successful sign-in. */
 function nextTarget(params) {
@@ -102,17 +96,6 @@ export async function renderSignIn(container, params = {}) {
           <a href="#/signup">Create one</a></p>
       </form>
 
-      <div class="card" style="display:grid;gap:10px">
-        <div class="row row--between">
-          <strong class="small">Demo accounts</strong>
-          <span class="badge badge--gold">Marker use</span>
-        </div>
-        <div class="filter-options">
-          ${DEMO_ACCOUNTS.map((account) => `
-            <button class="chip" type="button" data-demo="${account.email}">${account.label}</button>`).join('')}
-        </div>
-        <p class="field__hint">Fills the form with a seeded account so the walkthrough does not type passwords live.</p>
-      </div>
     </div>`;
 
   container.querySelector('[data-back]').addEventListener('click', () => { location.hash = '#/welcome'; });
@@ -134,15 +117,6 @@ export async function renderSignIn(container, params = {}) {
       ? 'This provider did not confirm the email address. Try another account or sign in with email.'
       : 'Sign-in could not be completed. Please try again or use email and password.');
   }
-
-  container.querySelectorAll('[data-demo]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const account = DEMO_ACCOUNTS.find((item) => item.email === button.dataset.demo);
-      form.email.value = account.email;
-      form.password.value = account.password;
-      error.hidden = true;
-    });
-  });
 
   container.querySelectorAll('[data-social]').forEach((button) => {
     button.addEventListener('click', () => {

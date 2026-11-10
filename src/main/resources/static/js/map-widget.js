@@ -19,48 +19,72 @@ export function mountOpenStreetMap(container, { zone, businesses = [], focus = n
   const radius = (zone.primaryRadiusKm || 1) * 1000;
   const zoneRing = L.circle(center, {
     radius,
-    color: '#d96c3d',
+    color: '#2563eb',
     weight: 2,
-    dashArray: '7 6',
-    fillColor: '#d96c3d',
-    fillOpacity: 0.08
+    fillColor: '#60a5fa',
+    fillOpacity: 0.045
   }).addTo(map);
 
-  L.circleMarker(center, {
-    radius: 6,
-    color: '#111318',
-    weight: 2,
-    fillColor: '#e0a33b',
-    fillOpacity: 1
-  }).bindPopup(textPopup(zone.name || 'Richfield campus', zone.address || '')).addTo(map);
+  L.marker(center, {
+    icon: pinIcon(L, 'campus'),
+    title: zone.anchorName || 'Richfield campus',
+    riseOnHover: true
+  }).bindPopup(textPopup(zone.anchorName || 'Richfield campus', zone.anchorAddress || '')).addTo(map);
 
-  businesses
-    .filter(hasCoordinates)
-    .forEach((business) => {
-      const isFocus = focus && String(focus.id) === String(business.id);
-      const marker = L.circleMarker([Number(business.latitude), Number(business.longitude)], {
-        radius: isFocus ? 8 : 6,
-        color: '#15161a',
-        weight: 2,
-        fillColor: isFocus ? '#e0a33b' : '#e77b4c',
-        fillOpacity: 1
-      });
-      marker.bindPopup(businessPopup(business)).addTo(map);
-    });
+  const markers = [];
+  businesses.filter(hasCoordinates).forEach((business) => {
+    const category = categoryGroup(business);
+    const marker = L.marker([Number(business.latitude), Number(business.longitude)], {
+      icon: pinIcon(L, category),
+      title: business.name || 'CBDVentures place',
+      riseOnHover: true
+    }).bindPopup(businessPopup(business, zone));
+    marker.addTo(map);
+    markers.push({ marker, category });
+  });
 
   if (focus && hasCoordinates(focus)) {
     map.setView([Number(focus.latitude), Number(focus.longitude)], 17);
   } else {
-    map.fitBounds(zoneRing.getBounds(), { padding: [12, 12], maxZoom: 16 });
+    map.fitBounds(zoneRing.getBounds(), { padding: [18, 18], maxZoom: 16 });
   }
   requestAnimationFrame(() => map.invalidateSize());
-  return map;
+
+  return {
+    setVisibleCategories(categories) {
+      markers.forEach(({ marker, category }) => {
+        if (categories.has(category)) marker.addTo(map);
+        else map.removeLayer(marker);
+      });
+    }
+  };
 }
 
 function hasCoordinates(business) {
   return business.latitude !== null && business.latitude !== undefined && business.latitude !== ''
     && business.longitude !== null && business.longitude !== undefined && business.longitude !== ''
     && Number.isFinite(Number(business.latitude)) && Number.isFinite(Number(business.longitude));
+}
+
+function categoryGroup(business) {
+  const source = `${business.categorySlug || ''} ${business.categoryName || ''} ${business.iconKey || ''}`
+    .toLowerCase();
+  if (source.includes('study')) return 'study-spaces';
+  if (source.includes('salon') || source.includes('personal care') || source.includes('grooming')) return 'salons';
+  if (source.includes('restaurant') || source.includes('sit-down')) return 'restaurants';
+  if (source.includes('food') || source.includes('eat')) return 'food-drinks';
+  if (source.includes('event') || source.includes('entertain')) return 'events';
+  return 'other';
+}
+
+function pinIcon(L, category) {
+  return L.divIcon({
+    className: 'map-marker-shell',
+    html: `<span class="map-marker map-marker--${category}"><span></span></span>`,
+    iconSize: [28, 36],
+    iconAnchor: [14, 34],
+    popupAnchor: [0, -30]
+  });
 }
 
 function textPopup(title, detail) {
@@ -76,27 +100,44 @@ function textPopup(title, detail) {
   return content;
 }
 
-function businessPopup(business) {
-  const content = textPopup(business.name || 'Place', business.categoryName || '');
+function businessPopup(business, zone) {
+  const content = textPopup(business.name || 'CBDVentures place', business.categoryName || '');
   const details = [];
   if (Number.isFinite(Number(business.distanceKm))) {
-    details.push(`${Number(business.distanceKm).toFixed(2)} km from campus`);
+    details.push(`${Number(business.distanceKm).toFixed(2)} km from Richfield`);
   }
   if (business.reviewCount) {
     details.push(`${Number(business.rating || 0).toFixed(1)} ★`);
   }
+  if (business.priceLevel) details.push(String(business.priceLevel).replaceAll('_', ' '));
   if (details.length) {
     const line = document.createElement('div');
     line.textContent = details.join(' · ');
     content.append(line);
   }
-  if (business.id !== undefined && business.id !== null) {
-    const link = document.createElement('a');
-    link.href = `#/business/${encodeURIComponent(business.id)}`;
-    link.textContent = 'View place';
-    link.style.display = 'inline-block';
-    link.style.marginTop = '5px';
-    content.append(link);
+
+  const actions = document.createElement('div');
+  actions.className = 'map-popup-actions';
+  const view = document.createElement('a');
+  view.href = `#/business/${encodeURIComponent(business.id)}`;
+  view.textContent = 'View place';
+  actions.append(view);
+
+  if (hasCoordinates(business)) {
+    const directions = document.createElement('a');
+    directions.href = directionsUrl(zone, business);
+    directions.target = '_blank';
+    directions.rel = 'noopener noreferrer';
+    directions.textContent = 'Get directions';
+    actions.append(directions);
   }
+  content.append(actions);
   return content;
+}
+
+function directionsUrl(zone, business) {
+  const origin = zone.anchorAddress || zone.anchorName || `${zone.anchorLatitude},${zone.anchorLongitude}`;
+  const destination = `${business.latitude},${business.longitude}`;
+  const query = new URLSearchParams({ api: '1', origin, destination, travelmode: 'walking' });
+  return `https://www.google.com/maps/dir/?${query.toString()}`;
 }

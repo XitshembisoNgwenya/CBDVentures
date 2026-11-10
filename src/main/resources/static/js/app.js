@@ -7,22 +7,22 @@
  *   • tabbed      — the five consumer screens;
  *   • portal      — owner, admin, reports and backup, reached from Profile.
  */
-import { api, session } from './api.js';
-import { hydrateIcons, icon, toast, closeModal } from './ui.js';
-import { parseRoute, setState, state, signOut } from './state.js';
-import { renderWelcome } from './views/welcome.js';
-import { renderSignIn, renderSignUp, renderVerify } from './views/auth.js';
-import { renderDiscover } from './views/discover.js';
-import { renderExplore } from './views/explore.js';
-import { renderBusiness } from './views/business.js';
-import { renderMap } from './views/map.js';
-import { renderAssistant } from './views/assistant.js';
-import { renderEvents } from './views/events.js';
-import { renderProfile } from './views/profile.js';
-import { renderOwner } from './views/owner.js';
-import { renderAdmin } from './views/admin.js';
-import { renderReports } from './views/reports.js';
-import { renderBackup } from './views/backup.js';
+import { api, session } from './api.js?v=20261110-3';
+import { hydrateIcons, icon, toast, closeModal } from './ui.js?v=20261110-3';
+import { parseRoute, setState, state, signOut } from './state.js?v=20261110-3';
+import { renderWelcome } from './views/welcome.js?v=20261110-3';
+import { renderSignIn, renderSignUp, renderVerify } from './views/auth.js?v=20261110-3';
+import { renderDiscover } from './views/discover.js?v=20261110-3';
+import { renderExplore } from './views/explore.js?v=20261110-3';
+import { renderBusiness } from './views/business.js?v=20261110-3';
+import { renderMap } from './views/map.js?v=20261110-3';
+import { renderAssistant } from './views/assistant.js?v=20261110-3';
+import { renderEvents } from './views/events.js?v=20261110-3';
+import { renderProfile } from './views/profile.js?v=20261110-3';
+import { renderOwner } from './views/owner.js?v=20261110-3';
+import { renderAdmin } from './views/admin.js?v=20261110-3';
+import { renderReports } from './views/reports.js?v=20261110-3';
+import { renderBackup } from './views/backup.js?v=20261110-3';
 
 const main = document.getElementById('main');
 const topbarAvatar = document.getElementById('topbar-avatar');

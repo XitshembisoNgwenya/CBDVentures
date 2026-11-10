@@ -6,11 +6,11 @@
  *  - downloads a single JSON backup of every table,
  *  - restores a previously downloaded backup (with an explicit confirmation).
  */
-import { api, session } from '../api.js';
-import { escapeHtml, icon, openModal, closeModal, toast } from '../ui.js';
+import { api, session } from '../api.js?v=20261110-3';
+import { escapeHtml, icon, openModal, closeModal, toast } from '../ui.js?v=20261110-3';
 // The dark client shows sign-in as a full screen route, not a modal.
 const openAuthModal = (mode = 'signin') => { location.hash = mode === 'register' ? '#/signup' : '#/signin'; };
-import { state, setState } from '../state.js';
+import { state, setState } from '../state.js?v=20261110-3';
 
 export async function renderBackup(container) {
   const user = state.user || session.user;

@@ -2,13 +2,13 @@
  * Business profile — hero image, rating summary, opening hours for the whole
  * week, amenities, the zone map, reviews and the review form.
  */
-import { api, session } from '../api.js';
+import { api, session } from '../api.js?v=20261110-3';
 import {
   icon, escapeHtml, distanceText, priceSymbols, stars, openModal, closeModal,
   toast, amenityIcon, relativeTime, initials, formatDateTime
-} from '../ui.js';
-import { state } from '../state.js';
-import { mountOpenStreetMap } from '../map-widget.js';
+} from '../ui.js?v=20261110-3';
+import { state } from '../state.js?v=20261110-3';
+import { mountOpenStreetMap } from '../map-widget.js?v=20261110-3';
 
 export async function renderBusiness(container, id) {
   if (!id) { location.hash = '#/explore'; return; }

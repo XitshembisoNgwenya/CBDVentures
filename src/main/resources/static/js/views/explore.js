@@ -1,8 +1,8 @@
 /**
  * Explore — browse the same curated places used by the chatbot.
  */
-import { api } from '../api.js';
-import { icon, escapeHtml, skeletonCards } from '../ui.js';
+import { api } from '../api.js?v=20261110-3';
+import { icon, escapeHtml, skeletonCards } from '../ui.js?v=20261110-3';
 
 const SORTS = [
   { key: 'closest', label: 'Closest' },
@@ -166,7 +166,7 @@ export async function renderExplore(container, params = {}) {
   }
 }
 
-function placeCard(place) {
+export function placeCard(place) {
   const glyph = CATEGORY_ICONS[place.category] || 'pin';
   const media = place.image
     ? `<img src="${escapeHtml(place.image)}" alt="${escapeHtml(place.name)}" loading="lazy">`

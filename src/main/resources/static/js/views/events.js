@@ -1,8 +1,8 @@
 /**
  * Events — upcoming happenings attached to venues inside the zone.
  */
-import { api } from '../api.js';
-import { icon, escapeHtml, formatDateTime, money, skeletonCards, toast } from '../ui.js';
+import { api } from '../api.js?v=20261110-3';
+import { icon, escapeHtml, formatDateTime, money, skeletonCards, toast } from '../ui.js?v=20261110-3';
 
 const SAVED_EVENTS_KEY = 'cbd.savedEvents';
 

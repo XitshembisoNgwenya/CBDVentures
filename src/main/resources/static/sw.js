@@ -1,38 +1,40 @@
 /**
  * CBDVentures service worker.
- * Strategy:
- *  - app shell (HTML, CSS, JS, artwork): cache-first so the interface opens offline;
- *  - API GETs: network-first with a cache fallback, so listings you have already
- *    seen stay readable when the connection drops (FR-02 / NFR reliability).
+ * The current app shell is always fetched from the network first, then saved for
+ * offline use. Public API GETs may use a saved response when offline; requests
+ * carrying a user's bearer token are never put in the shared cache.
  */
-const SHELL_CACHE = 'cbdventures-shell-v5';
-const DATA_CACHE = 'cbdventures-data-v5';
+const SHELL_CACHE = 'cbdventures-shell-v7';
+const DATA_CACHE = 'cbdventures-data-v7';
+const APP_VERSION = '20261110-3';
 
 const SHELL_ASSETS = [
   '/',
   '/index.html',
-  '/css/app.css',
-  '/js/app.js',
-  '/js/api.js',
-  '/js/ui.js',
-  '/js/map-widget.js',
-  '/js/state.js',
-  '/js/views/discover.js',
-  '/js/views/explore.js',
-  '/js/views/business.js',
-  '/js/views/map.js',
-  '/js/views/assistant.js',
-  '/js/views/events.js',
-  '/js/views/profile.js',
-  '/js/views/owner.js',
-  '/js/views/admin.js',
-  '/js/views/reports.js',
-  '/js/views/backup.js',
-  '/js/views/auth.js',
-  '/js/views/welcome.js',
+  `/css/app.css?v=${APP_VERSION}`,
+  `/js/theme-preload.js?v=${APP_VERSION}`,
+  `/js/app.js?v=${APP_VERSION}`,
+  `/js/api.js?v=${APP_VERSION}`,
+  `/js/ui.js?v=${APP_VERSION}`,
+  `/js/map-widget.js?v=${APP_VERSION}`,
+  `/js/state.js?v=${APP_VERSION}`,
+  `/js/views/discover.js?v=${APP_VERSION}`,
+  `/js/views/explore.js?v=${APP_VERSION}`,
+  `/js/views/business.js?v=${APP_VERSION}`,
+  `/js/views/map.js?v=${APP_VERSION}`,
+  `/js/views/assistant.js?v=${APP_VERSION}`,
+  `/js/views/events.js?v=${APP_VERSION}`,
+  `/js/views/profile.js?v=${APP_VERSION}`,
+  `/js/views/owner.js?v=${APP_VERSION}`,
+  `/js/views/admin.js?v=${APP_VERSION}`,
+  `/js/views/reports.js?v=${APP_VERSION}`,
+  `/js/views/backup.js?v=${APP_VERSION}`,
+  `/js/views/auth.js?v=${APP_VERSION}`,
+  `/js/views/welcome.js?v=${APP_VERSION}`,
   '/images/logo-dark.svg',
   '/images/hero.svg',
-  '/images/hero-welcome.svg',
+  `/images/hero-welcome.svg?v=${APP_VERSION}`,
+  '/images/pretoria-cbd-welcome.jpg?v=20261110-3',
   '/images/favicon.svg',
   '/images/icons/app-icon.svg',
   '/manifest.webmanifest'
@@ -51,7 +53,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
       .then((keys) => Promise.all(keys
-        .filter((key) => key !== SHELL_CACHE && key !== DATA_CACHE)
+        .filter((key) => key.startsWith('cbdventures-') && key !== SHELL_CACHE && key !== DATA_CACHE)
         .map((key) => caches.delete(key))))
       .then(() => self.clients.claim())
   );
@@ -68,8 +70,13 @@ self.addEventListener('fetch', (event) => {
   if (url.searchParams.has('__probe')) return;
 
   if (url.pathname.startsWith('/api/')) {
+    if (request.headers.has('Authorization')) {
+      event.respondWith(fetch(request, { cache: 'no-store' }));
+      return;
+    }
+
     event.respondWith(
-      fetch(request)
+      fetch(request, { cache: 'reload' })
         .then((response) => {
           if (response.ok) {
             const clone = response.clone();
@@ -85,20 +92,31 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Stale-while-revalidate: instant offline start, but a new deploy is picked
-  // up on the next load instead of being pinned in the cache forever.
+  const isAppShell = url.pathname === '/' || url.pathname === '/index.html'
+    || url.pathname.startsWith('/css/')
+    || url.pathname.startsWith('/js/')
+    || url.pathname.startsWith('/images/')
+    || url.pathname.startsWith('/icons/')
+    || url.pathname === '/manifest.webmanifest'
+    || url.pathname === '/favicon.ico';
+  if (!isAppShell) return;
+
   event.respondWith(
-    caches.match(request).then((cached) => {
-      const network = fetch(request)
-        .then((response) => {
-          if (response.ok && request.destination !== '') {
-            const clone = response.clone();
-            caches.open(SHELL_CACHE).then((cache) => cache.put(request, clone));
-          }
-          return response;
-        })
-        .catch(() => cached || caches.match('/index.html'));
-      return cached || network;
-    })
+    fetch(request, { cache: 'reload' })
+      .then((response) => {
+        if (response.ok) {
+          const clone = response.clone();
+          caches.open(SHELL_CACHE).then((cache) => cache.put(request, clone));
+        }
+        return response;
+      })
+      .catch(async () => {
+        const cached = await caches.match(request);
+        if (cached) return cached;
+        if (request.mode === 'navigate') {
+          return await caches.match('/index.html') || new Response('CBDVentures is offline.', { status: 503 });
+        }
+        return new Response('This resource is unavailable offline.', { status: 503 });
+      })
   );
 });

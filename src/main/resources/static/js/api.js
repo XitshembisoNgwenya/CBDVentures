@@ -126,6 +126,7 @@ async function request(path, { method = 'GET', body, signal, raw = false, cache 
   if (body !== undefined) headers['Content-Type'] = 'application/json';
   const token = session.token;
   if (token) headers.Authorization = `Bearer ${token}`;
+  const useLocalCache = cache && !token;
 
   let response;
   try {
@@ -138,7 +139,7 @@ async function request(path, { method = 'GET', body, signal, raw = false, cache 
     });
   } catch (error) {
     if (error.name === 'AbortError') throw error;
-    const cached = cache ? readCache(path) : null;
+    const cached = useLocalCache ? readCache(path) : null;
     if (cached) {
       return { data: cached, fromCache: true };
     }
@@ -159,7 +160,7 @@ async function request(path, { method = 'GET', body, signal, raw = false, cache 
     throw new ApiError(message, response.status, payload);
   }
 
-  if (cache) writeCache(path, payload);
+  if (useLocalCache) writeCache(path, payload);
   return { data: payload, fromCache: false };
 }
 

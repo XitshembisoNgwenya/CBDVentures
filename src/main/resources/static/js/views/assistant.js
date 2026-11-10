@@ -7,8 +7,8 @@
  * CBDVentures Assistant project (curated student directory + rule-based guide),
  * so no second server or API key is needed.
  */
-import { api, session } from '../api.js';
-import { icon, escapeHtml, toast } from '../ui.js';
+import { api, session } from '../api.js?v=20261110-3';
+import { icon, escapeHtml, toast } from '../ui.js?v=20261110-3';
 
 const GREETING = 'Hey! 👋 I’m the CBD Ventures guide. Ask about food, coffee, banking, beauty, entertainment, '
   + 'study spaces and libraries around Pretoria Central, or get directions from Richfield.';

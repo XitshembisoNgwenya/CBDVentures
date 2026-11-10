@@ -52,6 +52,8 @@ The guide uses local rules and the curated directory; it does not require a paid
 
 The theme switch in the top bar changes between dark and light mode and remembers the choice in this browser. Authentication tokens are stored per tab, so a new tab starts its own sign-in session; sign out before handing the same open tab to another person.
 
+The browser service worker fetches the app shell from the network before using its offline copy. When releasing static UI changes, bump the shared `?v=` value on the stylesheet, theme preload, module entrypoint and local module imports, then update `APP_VERSION` and the cache names in `src/main/resources/static/sw.js`. Activation removes older CBDVentures caches.
+
 ## Technology
 
 - Java 25 and Spring Boot 4.1.2

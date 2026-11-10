@@ -1,9 +1,9 @@
 /** Administrator verification queue (Phase 3 “verification before publishing”). */
-import { api, session } from '../api.js';
-import { emptyState, escapeHtml, icon, openModal, closeModal, statusBadge, toast } from '../ui.js';
+import { api, session } from '../api.js?v=20261110-3';
+import { emptyState, escapeHtml, icon, openModal, closeModal, statusBadge, toast } from '../ui.js?v=20261110-3';
 // The dark client shows sign-in as a full screen route, not a modal.
 const openAuthModal = (mode = 'signin') => { location.hash = mode === 'register' ? '#/signup' : '#/signin'; };
-import { state } from '../state.js';
+import { state } from '../state.js?v=20261110-3';
 
 export async function renderAdmin(container) {
   const user = state.user || session.user;
