@@ -386,8 +386,8 @@ input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(.7); }
    illustration up to full viewport height. */
 @media (min-width: 720px) {
   .welcome { max-width: 620px; margin: 0 auto; gap: 26px; }
-  .welcome__hero { max-height: 360px; }
-  .welcome__hero img { max-height: 360px; object-fit: cover; }
+  .welcome__hero { width: 100%; max-width: 440px; margin: 0 auto; }
+  .welcome__hero img { max-height: none; object-fit: contain; }
 }
 .welcome__title { font-size: clamp(2rem, 9vw, 2.7rem); letter-spacing: -.035em; text-align: center; }
 .welcome__tag { text-align: center; color: var(--gold); font-weight: 600; margin-top: 2px; }

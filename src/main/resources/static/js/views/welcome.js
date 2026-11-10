@@ -13,8 +13,8 @@ export async function renderWelcome(container) {
   container.innerHTML = `
     <div class="welcome">
       <div class="welcome__hero">
-        <img src="/images/hero-welcome.svg" alt="Illustration of the Union Buildings at dusk"
-             width="480" height="420">
+        <img src="/images/pretoria-cbd-welcome.jpg" alt="Aerial view of Pretoria CBD"
+             width="526" height="526">
       </div>
 
       <div>
