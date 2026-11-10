@@ -10,8 +10,8 @@
 import { api, session } from '../api.js';
 import { icon, escapeHtml, toast } from '../ui.js';
 
-const GREETING = 'Hey! 👋 I’m the CBD Ventures guide. Ask about the selected food, coffee, banking '
-  + 'and entertainment places around Pretoria Central, or get directions from Richfield.';
+const GREETING = 'Hey! 👋 I’m the CBD Ventures guide. Ask about the selected food, coffee, banking, '
+  + 'beauty and entertainment places around Pretoria Central, or get directions from Richfield.';
 
 const CATEGORY_ICON = {
   food: 'food',
@@ -28,6 +28,7 @@ const CATEGORY_ICON = {
 const QUICK_REPLIES = [
   'Food and coffee near campus',
   'Banks and ATMs',
+  'Beauty salons near campus',
   'Entertainment near campus',
   'Directions from Richfield'
 ];
@@ -64,7 +65,7 @@ export async function renderAssistant(container) {
     <form class="composer" id="assistant-form" autocomplete="off">
       <label class="sr-only" for="assistant-input">Ask the guide a question</label>
       <input class="input" id="assistant-input" name="message" type="text" maxlength="2000"
-             placeholder="Ask about food, study spots or directions…">
+             placeholder="Ask about places or directions…">
       <button class="composer__send" type="submit" aria-label="Send message" id="assistant-send">
         ${icon('arrowRight', 18)}
       </button>
