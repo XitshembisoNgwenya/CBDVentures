@@ -122,7 +122,7 @@ public class AssistantService {
 
     public Reply respond(String question, List<Message> history, String viewerName) {
         String safe = question == null ? "" : question.replaceAll("\\s+", " ").trim();
-        if (safe.isEmpty()) return new Reply("Ask me about food, study spots or directions around campus.", List.of(), "local", null);
+        if (safe.isEmpty()) return new Reply("Ask me about the listed food, coffee, banking and entertainment places, or directions from campus.", List.of(), "local", null);
 
         Optional<Reply> outOfArea = outOfAreaRequest(safe);
         if (outOfArea.isPresent()) return outOfArea.get();
@@ -152,15 +152,15 @@ public class AssistantService {
             String who = viewerName == null || viewerName.isBlank()
                     ? ""
                     : " " + viewerName.trim().split("\\s+")[0] + "!";
-            return new Reply("Hey" + who + " 👋 What are you looking for today — somewhere to eat, a place to study, "
+            return new Reply("Hey" + who + " 👋 What are you looking for today — food or coffee, banking, entertainment, "
                     + "or directions from Richfield?", List.of(), "local", null);
         }
         if (THANKS.matcher(safe).matches()) {
             return new Reply("You’re welcome! 😊 Anything else you want to find around campus?", List.of(), "local", null);
         }
         if (HELP.matcher(safe).matches()) {
-            return new Reply("I can help you find food, study spaces, shops and services near Richfield. "
-                    + "Ask me about a place, request walking directions from campus, or tell me your budget for a food idea.",
+            return new Reply("I can help with the listed food, coffee, banking and entertainment places near Richfield. "
+                    + "Ask about a place, request walking directions from campus, or ask for a clearly labelled food-budget estimate.",
                     List.of(), "local", null);
         }
 
@@ -190,8 +190,7 @@ public class AssistantService {
             List<String> studyIds = new ArrayList<>();
             nearby.stream().filter(p -> "study".equals(p.category())).limit(2).forEach(p -> studyIds.add(p.id()));
             pending.stream().filter(p -> "study".equals(p.category())).limit(2).forEach(p -> studyIds.add(p.id()));
-            return new Reply("Which place would you like to know more about — Richfield Pretoria campus library or "
-                    + "Es’kia Mphahlele Community Library? Tap a place or tell me its name.",
+            return new Reply("Which listed place would you like to know more about? Tap a place card or tell me its name.",
                     studyIds.stream().limit(2).toList(), "local", null);
         }
 
@@ -217,8 +216,8 @@ public class AssistantService {
             return new Reply(nearbyList(category, nearby, pending), listIds(category, nearby, pending), "local", null);
         }
 
-        return new Reply("I’m best at helping with places around Richfield Pretoria — food, libraries, shopping, "
-                + "transport and walking directions. Tell me what you’re looking for and I’ll help you find an option.",
+        return new Reply("I’m best at helping with the listed food, coffee, banking and entertainment places around Richfield Pretoria. "
+                + "Tell me what you’re looking for, or ask for walking directions from campus.",
                 List.of(), "local", null);
     }
 
@@ -421,8 +420,14 @@ public class AssistantService {
             case "student:quick-bake" -> "Quick Bake is a bakery and confectionery spot. Its storefront sign also mentions coffee.";
             case "student:thuba-rush-kj" -> "Thuba Rush KJ is a takeaway on Pretorius Street. "
                     + "We have a photo of its storefront so you can recognise it.";
-            case "student:four-four-two" -> "Four Four Two is a sports and music lounge. "
-                    + "It’s more of a hangout option than a study spot.";
+            case "student:four-four-two" -> "Four Four Two is a sports and music lounge in Pretoria Central. "
+                    + "Check entry requirements and current events with the venue.";
+            case "student:xpresso" -> "Xpresso is a coffee shop in Pretoria Central. Its map pin is available, "
+                    + "but an exact street address was not supplied.";
+            case "student:family-chips" -> "Family Chips is a takeaway food spot on Pretorius Street. "
+                    + "The current menu and prices have not been supplied.";
+            case "student:phola-shisa-nyama" -> "Phola Shisa Nyama is a shisa nyama spot at 219 Pretorius Street. "
+                    + "The current menu and hours have not been supplied.";
             case "local:richfield-library" -> "The Richfield Pretoria campus library is conveniently on campus, "
                     + "so it is an option to consider for studying between lectures.";
             case "student:sammy-marks-library" -> "Es’kia Mphahlele Community Library is a public library near Sammy Marks "
@@ -550,3 +555,4 @@ public class AssistantService {
         return previous[b.length()];
     }
 }
+

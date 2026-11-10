@@ -10,8 +10,8 @@
 import { api, session } from '../api.js';
 import { icon, escapeHtml, toast } from '../ui.js';
 
-const GREETING = 'Hey! 👋 I’m the CBD Ventures guide. Looking for lunch, somewhere to study, '
-  + 'or directions from Richfield? Ask me anything — even what you could plan with R50.';
+const GREETING = 'Hey! 👋 I’m the CBD Ventures guide. Ask about the selected food, coffee, banking '
+  + 'and entertainment places around Pretoria Central, or get directions from Richfield.';
 
 const CATEGORY_ICON = {
   food: 'food',
@@ -26,9 +26,9 @@ const CATEGORY_ICON = {
 };
 
 const QUICK_REPLIES = [
-  'Food near campus',
-  'Somewhere to study',
-  'What can I buy with R50?',
+  'Food and coffee near campus',
+  'Banks and ATMs',
+  'Entertainment near campus',
   'Directions from Richfield'
 ];
 
@@ -477,3 +477,4 @@ function initials(name) {
   const parts = String(name).trim().split(/\s+/);
   return escapeHtml(((parts[0] || '')[0] || '') + ((parts[1] || '')[0] || '')).toUpperCase() || icon('user', 14);
 }
+

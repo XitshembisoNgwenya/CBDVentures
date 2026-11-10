@@ -36,16 +36,10 @@ public class AssistantDirectory {
     private static final double EARTH_RADIUS_METRES = 6_371_008.8;
     private static final String DIRECTIONS_ORIGIN = "291 Helen Joseph Street, Pretoria Central, Pretoria, South Africa";
 
-    /** The nine categories the guide understands, in display order. */
+    /** Categories represented by the shared student place list. */
     public static final List<Category> CATEGORIES = List.of(
             new Category("food", "Food & coffee", "food"),
-            new Category("groceries", "Groceries", "basket"),
-            new Category("health", "Health & pharmacy", "heart"),
-            new Category("printing", "Printing & stationery", "printer"),
-            new Category("study", "Libraries & study", "study"),
             new Category("banking", "Banks & ATMs", "wallet"),
-            new Category("grooming", "Barbers & salons", "sparkle"),
-            new Category("transport", "Transport", "bus"),
             new Category("fun", "Entertainment", "ticket"));
 
     public record Category(String id, String label, String iconKey) { }
@@ -220,3 +214,4 @@ public class AssistantDirectory {
         return out.toString().replaceAll("\\s+", " ").trim();
     }
 }
+
