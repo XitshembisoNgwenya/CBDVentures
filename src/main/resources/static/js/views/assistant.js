@@ -10,8 +10,8 @@
 import { api, session } from '../api.js';
 import { icon, escapeHtml, toast } from '../ui.js';
 
-const GREETING = 'Hey! 👋 I’m the CBD Ventures guide. Ask about the selected food, coffee, banking, '
-  + 'beauty and entertainment places around Pretoria Central, or get directions from Richfield.';
+const GREETING = 'Hey! 👋 I’m the CBD Ventures guide. Ask about food, coffee, banking, beauty, entertainment, '
+  + 'study spaces and libraries around Pretoria Central, or get directions from Richfield.';
 
 const CATEGORY_ICON = {
   food: 'food',
@@ -27,6 +27,7 @@ const CATEGORY_ICON = {
 
 const QUICK_REPLIES = [
   'Food and coffee near campus',
+  'Study libraries near campus',
   'Banks and ATMs',
   'Beauty salons near campus',
   'Entertainment near campus',

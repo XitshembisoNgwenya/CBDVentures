@@ -153,13 +153,13 @@ public class AssistantService {
                     ? ""
                     : " " + viewerName.trim().split("\\s+")[0] + "!";
             return new Reply("Hey" + who + " 👋 What are you looking for today — food or coffee, banking, beauty services, entertainment, "
-                    + "or directions from Richfield?", List.of(), "local", null);
+                    + "a place to study, or directions from Richfield?", List.of(), "local", null);
         }
         if (THANKS.matcher(safe).matches()) {
             return new Reply("You’re welcome! 😊 Anything else you want to find around campus?", List.of(), "local", null);
         }
         if (HELP.matcher(safe).matches()) {
-            return new Reply("I can help with the listed food, coffee, banking, beauty and entertainment places near Richfield. "
+            return new Reply("I can help with the listed food, coffee, banking, beauty, entertainment and study places near Richfield. "
                     + "Ask about a place, request walking directions from campus, or ask for a clearly labelled food-budget estimate.",
                     List.of(), "local", null);
         }
@@ -216,7 +216,7 @@ public class AssistantService {
             return new Reply(nearbyList(category, nearby, pending), listIds(category, nearby, pending), "local", null);
         }
 
-        return new Reply("I’m best at helping with the listed food, coffee, banking, beauty and entertainment places around Richfield Pretoria. "
+        return new Reply("I’m best at helping with the listed food, coffee, banking, beauty, entertainment and study places around Richfield Pretoria. "
                 + "Tell me what you’re looking for, or ask for walking directions from campus.",
                 List.of(), "local", null);
     }
@@ -253,13 +253,19 @@ public class AssistantService {
         }
         String label = category == null ? "places" : AssistantDirectory.labelFor(category).toLowerCase();
         if (lines.isEmpty()) {
-            return "I don’t have a " + label + " recommendation to show you just yet. "
+            String emptyMessage = "study".equals(category)
+                    ? "I don’t have a nearby study place to show you just yet. "
+                    : "I don’t have a " + label + " recommendation to show you just yet. ";
+            return emptyMessage
                     + "Try another category or ask me about a specific place.";
         }
         List<String> shown = lines.subList(0, Math.min(8, lines.size()));
         String note = unchecked.isEmpty() ? ""
                 : " Some listings are student-submitted, so their exact distance has not been checked.";
-        return "Here are some " + label + " options to check out from Richfield:\n\n"
+        String introduction = "study".equals(category)
+                ? "Here are nearby places to study from Richfield:\n\n"
+                : "Here are some " + label + " options to check out from Richfield:\n\n";
+        return introduction
                 + String.join("\n", shown)
                 + "\n\nTap a place card for its photo and directions starting at campus." + note;
     }

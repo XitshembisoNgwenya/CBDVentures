@@ -204,5 +204,48 @@
     "description": "Beauty salon at Container 4 E&T. Current services, opening hours and booking details were not supplied.",
     "sourceLabel": "Student-supplied salon photo, address and Google Maps reference",
     "verificationNote": "Google Maps reference: https://maps.app.goo.gl/JBbRyR2r7D5DDToC9. Coordinates were not included in the shared details, so the exact map pin is unverified."
+  },
+  {
+    "id": "local:richfield-library",
+    "name": "Richfield Campus Library",
+    "aliases": [
+      "Richfield Library",
+      "Richfield campus library",
+      "campus library",
+      "the library at Richfield"
+    ],
+    "category": "study",
+    "address": "291 Helen Joseph Street, Pretoria Central, Pretoria, 0001 (on campus)",
+    "lat": -25.746467,
+    "lng": 28.19252,
+    "description": "Quiet study space on the Richfield Pretoria campus for registered students with a campus card.",
+    "highlights": [
+      "Quiet study floors and group rooms.",
+      "Reliable campus Wi-Fi is available."
+    ],
+    "sourceLabel": "Richfield campus directory",
+    "verificationNote": "Campus access may require a valid Richfield student card."
+  },
+  {
+    "id": "student:sammy-marks-library",
+    "name": "Es’kia Mphahlele Community Library",
+    "aliases": [
+      "Eskia Mphahlele Library",
+      "E'skia Mphahlele Library",
+      "Mphahlele Library",
+      "Es’kia Library",
+      "Sammy Marks Square Library"
+    ],
+    "category": "study",
+    "address": "Sammy Marks Square, corner Madiba Street and Sisulu Street, Pretoria Central, Pretoria, 0002",
+    "lat": -25.745855,
+    "lng": 28.193177,
+    "description": "City of Tshwane community library at Sammy Marks Square, a nearby public option for reading and study.",
+    "highlights": [
+      "Public community library in Sammy Marks Square.",
+      "A nearby place to read, study or do research."
+    ],
+    "sourceLabel": "City of Tshwane library listing",
+    "verificationNote": "The mapped point is an approximate pin within Sammy Marks Square. Check current public access and services with the library before visiting."
   }
 ]

@@ -16,13 +16,13 @@ CBDVentures is a mobile-first guide and local discovery platform for students, r
 | Map | Shows active listings from the wider platform catalogue on an interactive map. |
 | Business profiles and reviews | Show listing details, average ratings, review counts and the 1–5 star distribution from submitted reviews. |
 | Events | Shows upcoming events and lets users save events in the current browser. |
-| Accounts and profiles | Supports guest browsing, registration, email verification, sign-in and optional Google or Apple sign-in. |
+| Accounts and profiles | Supports guest browsing, registration, email verification, sign-in and optional Google or Apple sign-in. Signed-in sessions stay in the current browser tab. |
 | Owner tools | Let business owners manage their listings and venue events. |
 | Admin tools | Provide listing verification, reports, CSV export, and database backup and restore. |
 
 ## Explore and Assistant: one shared place list
 
-Explore and Ask use the **same curated directory of 13 places**. These are the only student-directory places shown across both screens. The directory is stored in `src/main/resources/assistant/places.json` and is served through the public Assistant API. Explore reads that API too, so the two screens stay aligned.
+Explore and Ask use the **same curated directory of 15 places**. These are the only student-directory places shown across both screens. The directory is stored in `src/main/resources/assistant/places.json` and is served through the public Assistant API. Explore reads that API too, so the two screens stay aligned.
 
 | Place | Category | Address or location supplied |
 |---|---|---|
@@ -39,14 +39,18 @@ Explore and Ask use the **same curated directory of 13 places**. These are the o
 | Top Class Fast Foods | Food & coffee | 287 Pretorius Street |
 | The South African State Theatre | Entertainment | 320 Pretorius Street, Pretoria Central, Pretoria, 0001 · 012 392 4000 · [website](http://www.statetheatre.co.za/) |
 | Container 4 E&T Beauty Salon | Beauty & grooming | 344 Francis Baard Street, Pretoria Central, Pretoria, 0002 · [map reference](https://maps.app.goo.gl/JBbRyR2r7D5DDToC9) |
+| Richfield Campus Library | Study spaces | 291 Helen Joseph Street, inside the Richfield Pretoria campus |
+| Es’kia Mphahlele Community Library | Study spaces | Sammy Marks Square, corner Madiba Street and Sisulu Street, Pretoria Central · approximate map pin |
 
-Ten places have standalone supplied photos in `src/main/resources/static/images/places/`. The Xpresso, State Theatre and beauty salon photos were only available inside chat screenshots, so those cards currently use category icons. Map pins and addresses come from the supplied location references. The State Theatre has a supplied map pin; the beauty salon's location was supplied as an address and map link without coordinates, so it is marked as unverified and is not given a calculated distance. Confirm a venue's current entrance, hours, services and prices before making a special trip.
+Ten places have standalone supplied photos in `src/main/resources/static/images/places/`. The Xpresso, State Theatre, beauty salon and two library cards currently use category icons. Map pins and addresses come from the supplied location references. The State Theatre has a supplied map pin; the beauty salon's location was supplied as an address and map link without coordinates, so it is marked as unverified and is not given a calculated distance. The Es’kia Mphahlele pin is approximate within Sammy Marks Square. Confirm a venue's current entrance, hours, services and prices before making a special trip.
 
 This curated student list is separate from the wider database catalogue used by Discover, Map and the business-management features. Seeded demo businesses in that catalogue do not get added to Explore or Ask.
 
 ### Assistant behavior
 
-The guide uses local rules and the curated directory; it does not require a paid AI API key. It can match place names and aliases, answer supported questions about the listed places, show place cards and link to walking directions from Richfield. It does not have confirmed menus or opening hours for every place, so it should not guess those details. Budget amounts are suggestions, not confirmed venue prices.
+The guide uses local rules and the curated directory; it does not require a paid AI API key. It can match place names and aliases, answer supported questions about the listed places, show place cards and link to walking directions from Richfield. Study requests include the on-campus Richfield Campus Library and the public Es’kia Mphahlele Community Library. It does not have confirmed menus or opening hours for every place, so it should not guess those details. Budget amounts are suggestions, not confirmed venue prices.
+
+The theme switch in the top bar changes between dark and light mode and remembers the choice in this browser. Authentication tokens are stored per tab, so a new tab starts its own sign-in session; sign out before handing the same open tab to another person.
 
 ## Technology
 

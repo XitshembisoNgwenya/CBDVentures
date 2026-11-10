@@ -41,7 +41,8 @@ public class AssistantDirectory {
             new Category("food", "Food & coffee", "food"),
             new Category("banking", "Banks & ATMs", "wallet"),
             new Category("grooming", "Beauty & grooming", "salon"),
-            new Category("fun", "Entertainment", "ticket"));
+            new Category("fun", "Entertainment", "ticket"),
+            new Category("study", "Study spaces", "study"));
 
     public record Category(String id, String label, String iconKey) { }
 

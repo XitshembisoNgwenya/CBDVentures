@@ -13,6 +13,37 @@ const USER_KEY = 'cbd.user';
 const CACHE_PREFIX = 'cbd.cache.';
 const CACHE_TTL_MS = 1000 * 60 * 60 * 12;
 
+// Keep authentication private to the current browser tab. Older builds stored
+// these values in localStorage, which could leave the previous visitor signed
+// in on a shared device.
+let volatileAuth = { token: null, user: null };
+try {
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(USER_KEY);
+} catch { /* storage may be disabled by the browser */ }
+
+function readScopedAuth(key) {
+  try {
+    return window.sessionStorage.getItem(key)
+      || (key === TOKEN_KEY ? volatileAuth.token : volatileAuth.user);
+  }
+  catch { return key === TOKEN_KEY ? volatileAuth.token : volatileAuth.user; }
+}
+
+function writeScopedAuth(key, value) {
+  if (key === TOKEN_KEY) volatileAuth.token = value;
+  else volatileAuth.user = value;
+  try { window.sessionStorage.setItem(key, value); }
+  catch { /* the in-memory copy keeps this tab usable */ }
+}
+
+function removeScopedAuth(key) {
+  if (key === TOKEN_KEY) volatileAuth.token = null;
+  else volatileAuth.user = null;
+  try { window.sessionStorage.removeItem(key); }
+  catch { /* the in-memory copy is cleared above */ }
+}
+
 export class ApiError extends Error {
   constructor(message, status, payload) {
     super(message);
@@ -26,22 +57,22 @@ export class ApiError extends Error {
 
 export const session = {
   get token() {
-    try { return localStorage.getItem(TOKEN_KEY); } catch { return null; }
+    return readScopedAuth(TOKEN_KEY);
   },
   get user() {
-    try { return JSON.parse(localStorage.getItem(USER_KEY) || 'null'); } catch { return null; }
+    try { return JSON.parse(readScopedAuth(USER_KEY) || 'null'); } catch { return null; }
   },
   save(auth) {
-    localStorage.setItem(TOKEN_KEY, auth.token);
-    localStorage.setItem(USER_KEY, JSON.stringify(auth.user));
+    writeScopedAuth(TOKEN_KEY, auth.token);
+    writeScopedAuth(USER_KEY, JSON.stringify(auth.user));
     return auth.user;
   },
   updateUser(user) {
-    if (user) localStorage.setItem(USER_KEY, JSON.stringify(user));
+    if (user) writeScopedAuth(USER_KEY, JSON.stringify(user));
   },
   clear() {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
+    removeScopedAuth(TOKEN_KEY);
+    removeScopedAuth(USER_KEY);
   },
   get isSignedIn() {
     return Boolean(this.token && this.user);

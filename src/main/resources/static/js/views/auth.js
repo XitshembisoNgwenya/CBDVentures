@@ -69,6 +69,10 @@ export async function renderSignIn(container, params = {}) {
       <div class="auth__head">
         <h1 class="auth__title">Welcome Back</h1>
         <p class="auth__sub">Sign in to continue exploring Pretoria Central</p>
+        ${session.isSignedIn ? `<p class="field__hint" style="margin-top:10px">
+          This tab is currently signed in as <strong>${escapeHtml(session.user?.fullName || session.user?.email || 'another account')}</strong>.
+          <button class="btn--link" type="button" id="switch-account">Use a different account</button>
+        </p>` : ''}
       </div>
 
       <form class="auth__body" id="signin-form" novalidate>
@@ -113,6 +117,13 @@ export async function renderSignIn(container, params = {}) {
 
   container.querySelector('[data-back]').addEventListener('click', () => { location.hash = '#/welcome'; });
   bindPasswordToggles(container);
+
+  container.querySelector('#switch-account')?.addEventListener('click', () => {
+    session.clear();
+    setState({ user: null });
+    window.dispatchEvent(new Event('cbd:session'));
+    toast('This tab is ready for a different account.', 'success');
+  });
 
   const form = container.querySelector('#signin-form');
   const error = container.querySelector('#signin-error');

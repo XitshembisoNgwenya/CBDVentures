@@ -26,9 +26,43 @@ import { renderBackup } from './views/backup.js';
 
 const main = document.getElementById('main');
 const topbarAvatar = document.getElementById('topbar-avatar');
+const themeButton = document.getElementById('theme-toggle');
+const themeButtonIcon = document.getElementById('theme-toggle-icon');
+const themeButtonLabel = document.getElementById('theme-toggle-label');
 const SEEN_KEY = 'cbd.welcomeSeen';
+const THEME_KEY = 'cbd.theme';
 
 let renderToken = 0;
+
+function hasSeenWelcome() {
+  if (window.__CBD_WELCOME_SEEN) return true;
+  try { if (localStorage.getItem(SEEN_KEY) === '1') return true; } catch { /* storage is optional */ }
+  try { if (sessionStorage.getItem(SEEN_KEY) === '1') return true; } catch { /* storage is optional */ }
+  return false;
+}
+
+function setTheme(theme, persist = true) {
+  const selected = theme === 'light' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = selected;
+  document.documentElement.style.colorScheme = selected;
+  const next = selected === 'dark' ? 'light' : 'dark';
+  const nextLabel = next === 'light' ? 'Light mode' : 'Dark mode';
+  themeButton?.setAttribute('aria-label', `Switch to ${next} mode`);
+  themeButton?.setAttribute('aria-pressed', String(selected === 'light'));
+  if (themeButtonIcon) themeButtonIcon.textContent = next === 'light' ? '☼' : '☾';
+  if (themeButtonLabel) themeButtonLabel.textContent = nextLabel;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content',
+    selected === 'light' ? '#F7F5F1' : '#0B0B0D');
+  document.querySelector('meta[name="color-scheme"]')?.setAttribute('content', selected);
+  if (persist) {
+    try { localStorage.setItem(THEME_KEY, selected); } catch { /* preference is optional */ }
+  }
+}
+
+setTheme(document.documentElement.dataset.theme || 'dark', false);
+themeButton?.addEventListener('click', () => {
+  setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+});
 
 /* ------------------------------------------------------------------- routing */
 
@@ -46,7 +80,7 @@ async function router() {
   const route = first || '';
 
   // First visit: introduce the app before dropping the visitor into the feed.
-  if (!first && !session.isSignedIn && !localStorage.getItem(SEEN_KEY)
+  if (!first && !session.isSignedIn && !hasSeenWelcome()
       && !window.location.hash.replace('#', '').startsWith('/sign')) {
     window.location.replace('#/welcome');
     return;
