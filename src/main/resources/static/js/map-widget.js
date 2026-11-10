@@ -11,6 +11,7 @@ export function mountOpenStreetMap(container, { zone, businesses = [], focus = n
   const L = window.L;
   const center = [zone.anchorLatitude, zone.anchorLongitude];
   const map = L.map(container, { scrollWheelZoom: false, zoomControl: true }).setView(center, 16);
+  map.attributionControl.setPrefix('');
   L.tileLayer(TILE_URL, {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'

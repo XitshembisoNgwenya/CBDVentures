@@ -2,7 +2,7 @@
  * Small shared application state. Kept deliberately simple: the router renders
  * a view from this object and views call `setState` to update the shell.
  */
-import { session } from './api.js?v=20261110-3';
+import { session } from './api.js?v=20261110-4';
 
 export const state = {
   user: session.user,

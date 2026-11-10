@@ -4,9 +4,9 @@
  * reference design, and all three talk to the real API — registration returns a
  * code, verification returns the JWT.
  */
-import { api, session } from '../api.js?v=20261110-3';
-import { icon, toast, openModal, closeModal, escapeHtml } from '../ui.js?v=20261110-3';
-import { setState } from '../state.js?v=20261110-3';
+import { api, session } from '../api.js?v=20261110-4';
+import { icon, toast, openModal, closeModal, escapeHtml } from '../ui.js?v=20261110-4';
+import { setState } from '../state.js?v=20261110-4';
 
 /** Where to go after a successful sign-in. */
 function nextTarget(params) {

@@ -4,9 +4,9 @@
  * offline use. Public API GETs may use a saved response when offline; requests
  * carrying a user's bearer token are never put in the shared cache.
  */
-const SHELL_CACHE = 'cbdventures-shell-v7';
-const DATA_CACHE = 'cbdventures-data-v7';
-const APP_VERSION = '20261110-3';
+const SHELL_CACHE = 'cbdventures-shell-v8';
+const DATA_CACHE = 'cbdventures-data-v8';
+const APP_VERSION = '20261110-4';
 
 const SHELL_ASSETS = [
   '/',
@@ -21,6 +21,8 @@ const SHELL_ASSETS = [
   `/js/views/discover.js?v=${APP_VERSION}`,
   `/js/views/explore.js?v=${APP_VERSION}`,
   `/js/views/business.js?v=${APP_VERSION}`,
+  `/js/views/place.js?v=${APP_VERSION}`,
+  `/js/views/place-profiles.js?v=${APP_VERSION}`,
   `/js/views/map.js?v=${APP_VERSION}`,
   `/js/views/assistant.js?v=${APP_VERSION}`,
   `/js/views/events.js?v=${APP_VERSION}`,
@@ -34,7 +36,7 @@ const SHELL_ASSETS = [
   '/images/logo-dark.svg',
   '/images/hero.svg',
   `/images/hero-welcome.svg?v=${APP_VERSION}`,
-  '/images/pretoria-cbd-welcome.jpg?v=20261110-3',
+  '/images/pretoria-cbd-welcome.jpg?v=20261110-4',
   '/images/favicon.svg',
   '/images/icons/app-icon.svg',
   '/manifest.webmanifest'

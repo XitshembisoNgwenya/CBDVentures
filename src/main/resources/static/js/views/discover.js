@@ -1,9 +1,10 @@
 /**
  * Discover — the home feed, using the same verified directory as Explore.
  */
-import { api, session } from '../api.js?v=20261110-3';
-import { icon, escapeHtml, skeletonCards } from '../ui.js?v=20261110-3';
-import { placeCard } from './explore.js?v=20261110-3';
+import { api, session } from '../api.js?v=20261110-4';
+import { icon, escapeHtml, skeletonCards } from '../ui.js?v=20261110-4';
+import { placeCard } from './explore.js?v=20261110-4';
+import { addBusinessProfiles } from './place-profiles.js?v=20261110-4';
 
 const CATEGORY_ALIASES = {
   'food-drinks': 'food',
@@ -46,7 +47,7 @@ export async function renderDiscover(container, params = {}) {
       api.assistantPlaces(),
       api.assistantConfig()
     ]);
-    const places = placesResult.data || [];
+    const places = await addBusinessProfiles(placesResult.data || []);
     const categories = (configResult.data?.categories || [])
       .filter((category) => places.some((place) => place.category === category.id));
     let selectedCategory = CATEGORY_ALIASES[params.category] || params.category || '';

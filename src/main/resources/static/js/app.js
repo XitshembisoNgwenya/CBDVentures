@@ -7,28 +7,28 @@
  *   • tabbed      — the five consumer screens;
  *   • portal      — owner, admin, reports and backup, reached from Profile.
  */
-import { api, session } from './api.js?v=20261110-3';
-import { hydrateIcons, icon, toast, closeModal } from './ui.js?v=20261110-3';
-import { parseRoute, setState, state, signOut } from './state.js?v=20261110-3';
-import { renderWelcome } from './views/welcome.js?v=20261110-3';
-import { renderSignIn, renderSignUp, renderVerify } from './views/auth.js?v=20261110-3';
-import { renderDiscover } from './views/discover.js?v=20261110-3';
-import { renderExplore } from './views/explore.js?v=20261110-3';
-import { renderBusiness } from './views/business.js?v=20261110-3';
-import { renderMap } from './views/map.js?v=20261110-3';
-import { renderAssistant } from './views/assistant.js?v=20261110-3';
-import { renderEvents } from './views/events.js?v=20261110-3';
-import { renderProfile } from './views/profile.js?v=20261110-3';
-import { renderOwner } from './views/owner.js?v=20261110-3';
-import { renderAdmin } from './views/admin.js?v=20261110-3';
-import { renderReports } from './views/reports.js?v=20261110-3';
-import { renderBackup } from './views/backup.js?v=20261110-3';
+import { api, session } from './api.js?v=20261110-4';
+import { hydrateIcons, icon, toast, closeModal } from './ui.js?v=20261110-4';
+import { parseRoute, setState, state, signOut } from './state.js?v=20261110-4';
+import { renderWelcome } from './views/welcome.js?v=20261110-4';
+import { renderSignIn, renderSignUp, renderVerify } from './views/auth.js?v=20261110-4';
+import { renderDiscover } from './views/discover.js?v=20261110-4';
+import { renderExplore } from './views/explore.js?v=20261110-4';
+import { renderBusiness } from './views/business.js?v=20261110-4';
+import { renderPlace } from './views/place.js?v=20261110-4';
+import { renderMap } from './views/map.js?v=20261110-4';
+import { renderAssistant } from './views/assistant.js?v=20261110-4';
+import { renderEvents } from './views/events.js?v=20261110-4';
+import { renderProfile } from './views/profile.js?v=20261110-4';
+import { renderOwner } from './views/owner.js?v=20261110-4';
+import { renderAdmin } from './views/admin.js?v=20261110-4';
+import { renderReports } from './views/reports.js?v=20261110-4';
+import { renderBackup } from './views/backup.js?v=20261110-4';
 
 const main = document.getElementById('main');
 const topbarAvatar = document.getElementById('topbar-avatar');
 const themeButton = document.getElementById('theme-toggle');
 const themeButtonIcon = document.getElementById('theme-toggle-icon');
-const themeButtonLabel = document.getElementById('theme-toggle-label');
 const SEEN_KEY = 'cbd.welcomeSeen';
 const THEME_KEY = 'cbd.theme';
 
@@ -46,11 +46,9 @@ function setTheme(theme, persist = true) {
   document.documentElement.dataset.theme = selected;
   document.documentElement.style.colorScheme = selected;
   const next = selected === 'dark' ? 'light' : 'dark';
-  const nextLabel = next === 'light' ? 'Light mode' : 'Dark mode';
   themeButton?.setAttribute('aria-label', `Switch to ${next} mode`);
   themeButton?.setAttribute('aria-pressed', String(selected === 'light'));
-  if (themeButtonIcon) themeButtonIcon.textContent = next === 'light' ? '☼' : '☾';
-  if (themeButtonLabel) themeButtonLabel.textContent = nextLabel;
+  if (themeButtonIcon) themeButtonIcon.innerHTML = icon(next === 'light' ? 'sun' : 'moon', 19);
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content',
     selected === 'light' ? '#F7F5F1' : '#0B0B0D');
   document.querySelector('meta[name="color-scheme"]')?.setAttribute('content', selected);
@@ -68,7 +66,7 @@ themeButton?.addEventListener('click', () => {
 
 const CHROMELESS = new Set(['welcome', 'signin', 'signup', 'verify', 'oauth-complete']);
 const TAB_OF = {
-  '': 'discover', explore: 'explore', business: 'explore',
+  '': 'discover', explore: 'explore', business: 'explore', place: 'discover',
   map: 'map', assistant: 'assistant', events: 'events', profile: 'profile', owner: 'profile',
   admin: 'profile', reports: 'profile', backup: 'profile'
 };
@@ -105,6 +103,7 @@ async function router() {
       case 'discover': await renderDiscover(main, params); break;
       case 'explore': await renderExplore(main, params); break;
       case 'business': await renderBusiness(main, second); break;
+      case 'place': await renderPlace(main, second); break;
       case 'map': await renderMap(main, params); break;
       case 'assistant': await renderAssistant(main); break;
       case 'events': await renderEvents(main, params); break;

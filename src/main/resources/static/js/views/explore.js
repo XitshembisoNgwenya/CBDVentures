@@ -1,8 +1,9 @@
 /**
  * Explore — browse the same curated places used by the chatbot.
  */
-import { api } from '../api.js?v=20261110-3';
-import { icon, escapeHtml, skeletonCards } from '../ui.js?v=20261110-3';
+import { api } from '../api.js?v=20261110-4';
+import { icon, escapeHtml, skeletonCards } from '../ui.js?v=20261110-4';
+import { addBusinessProfiles, placeDetailsHref } from './place-profiles.js?v=20261110-4';
 
 const SORTS = [
   { key: 'closest', label: 'Closest' },
@@ -73,7 +74,7 @@ export async function renderExplore(container, params = {}) {
       api.assistantPlaces(),
       api.assistantConfig()
     ]);
-    places = placeResult.data || [];
+    places = await addBusinessProfiles(placeResult.data || []);
     categories = (configResult.data?.categories || [])
       .filter((category) => places.some((place) => place.category === category.id));
     if (!categories.some((category) => category.id === filters.category)) filters.category = '';
@@ -168,6 +169,8 @@ export async function renderExplore(container, params = {}) {
 
 export function placeCard(place) {
   const glyph = CATEGORY_ICONS[place.category] || 'pin';
+  const detailsHref = placeDetailsHref(place);
+  const profile = place.businessProfile;
   const media = place.image
     ? `<img src="${escapeHtml(place.image)}" alt="${escapeHtml(place.name)}" loading="lazy">`
     : `<span class="place-card__glyph">${icon(glyph, 20)}</span>`;
@@ -177,20 +180,25 @@ export function placeCard(place) {
 
   return `
     <article class="place-card">
-      <div class="place-card__media">${media}</div>
-      <div class="place-card__body">
-        <div class="place-card__top">
-          <strong class="place-card__title">${escapeHtml(place.name)}</strong>
-          ${distance}
+      <a class="place-card__main" href="${escapeHtml(detailsHref)}" aria-label="View details for ${escapeHtml(place.name)}">
+        <div class="place-card__media">${media}</div>
+        <div class="place-card__body">
+          <div class="place-card__top">
+            <strong class="place-card__title">${escapeHtml(place.name)}</strong>
+            ${distance}
+          </div>
+          <span class="place-card__cat">${escapeHtml(place.categoryLabel || 'Place')}</span>
+          <span class="place-card__meta">${icon('pin', 11)} ${escapeHtml(place.address)}</span>
+          ${profile ? `<span class="place-card__meta"><span class="rating-inline">${icon('star', 12)} ${profile.reviewCount ? `${Number(profile.rating).toFixed(1)} · ${profile.reviewCount} rating${profile.reviewCount === 1 ? '' : 's'}` : 'No ratings yet'}</span></span>` : ''}
+          ${profile?.amenities?.length ? `<span class="place-card__amenities">${profile.amenities.slice(0, 3).map((amenity) => `<span class="tag">${escapeHtml(amenity)}</span>`).join('')}</span>` : ''}
+          ${place.description ? `<p class="small muted">${escapeHtml(place.description)}</p>` : ''}
         </div>
-        <span class="place-card__cat">${escapeHtml(place.categoryLabel || 'Place')}</span>
-        <span class="place-card__meta">${icon('pin', 11)} ${escapeHtml(place.address)}</span>
-        ${place.description ? `<p class="small muted">${escapeHtml(place.description)}</p>` : ''}
-        <div class="place-card__actions">
-          <a class="btn btn--sm btn--ghost" href="${escapeHtml(place.directionsUrl)}"
-             target="_blank" rel="noopener noreferrer">${icon('directions', 14)} Directions</a>
-          <a class="btn btn--sm btn--ghost" href="#/assistant">${icon('chat', 14)} Ask the guide</a>
-        </div>
+      </a>
+      <div class="place-card__actions">
+        <a class="btn btn--sm btn--ghost" href="${escapeHtml(detailsHref)}">${icon('info', 14)} Details</a>
+        <a class="btn btn--sm btn--ghost" href="${escapeHtml(place.directionsUrl)}"
+           target="_blank" rel="noopener noreferrer">${icon('directions', 14)} Directions</a>
+        <a class="btn btn--sm btn--ghost" href="#/assistant">${icon('chat', 14)} Ask the guide</a>
       </div>
     </article>`;
 }
