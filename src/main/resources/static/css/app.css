@@ -625,7 +625,7 @@ input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(.7); }
 .rating-bars { display: grid; gap: 5px; }
 .rating-bar { display: grid; grid-template-columns: 12px 1fr 24px; align-items: center; gap: 8px; font-size: .74rem; color: var(--muted); }
 .rating-bar__track { height: 6px; border-radius: 99px; background: var(--surface-3); overflow: hidden; }
-.rating-bar__fill { height: 100%; border-radius: 99px; background: var(--gold); }
+.rating-bar__fill { display: block; height: 100%; border-radius: 99px; background: var(--gold); }
 
 /* star picker for the review form */
 .star-picker { display: flex; gap: 8px; }
