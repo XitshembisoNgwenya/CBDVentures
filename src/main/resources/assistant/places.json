@@ -172,5 +172,37 @@
     "description": "Fast-food takeaway at 287 Pretorius Street.",
     "image": "/images/places/top-class-fast-foods.jpg",
     "sourceLabel": "Student-supplied storefront photo, address and map pin"
+  },
+  {
+    "id": "student:state-theatre",
+    "name": "The South African State Theatre",
+    "aliases": [
+      "State Theatre",
+      "South African State Theatre",
+      "Pretoria State Theatre",
+      "State Theatre Pretoria"
+    ],
+    "category": "fun",
+    "address": "320 Pretorius Street, Pretoria Central, Pretoria, 0001",
+    "lat": -25.747171,
+    "lng": 28.194145,
+    "description": "Performing-arts venue. Phone: 012 392 4000. Website: http://www.statetheatre.co.za/. Check the current programme, opening hours and ticket details with the venue.",
+    "sourceLabel": "Student-supplied photo, address and map pin"
+  },
+  {
+    "id": "student:container-4-et-beauty-salon",
+    "name": "Container 4 E&T Beauty Salon",
+    "aliases": [
+      "Container 4 E&T",
+      "E&T Beauty Salon",
+      "Container 4 Beauty Salon",
+      "344 Francis Baard Beauty Salon",
+      "beauty salon"
+    ],
+    "category": "grooming",
+    "address": "344 Francis Baard Street, Pretoria Central, Pretoria, 0002",
+    "description": "Beauty salon at Container 4 E&T. Current services, opening hours and booking details were not supplied.",
+    "sourceLabel": "Student-supplied salon photo, address and Google Maps reference",
+    "verificationNote": "Google Maps reference: https://maps.app.goo.gl/JBbRyR2r7D5DDToC9. Coordinates were not included in the shared details, so the exact map pin is unverified."
   }
 ]
