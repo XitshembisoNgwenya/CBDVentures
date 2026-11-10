@@ -192,3 +192,8 @@ pom.xml                                  Dependencies and Java version
 - Feedback after opening directions is stored in the user's browser; it does not automatically alter a shared place record.
 - Payment processing and reservations are outside the current build.
 - The curated directory and the platform's business catalogue are separate data sources.
+
+
+## Database testing evidence
+
+A redacted database testing report and SQL exports are archived in [docs/database-evidence/2026-11-10/](docs/database-evidence/2026-11-10/README.md). They document a separate MySQL test schema and do not replace `db/schema_mysql.sql` or connect the running app to that database. The SQL exports contain `DROP TABLE` statements and should only be restored into disposable test schemas.
