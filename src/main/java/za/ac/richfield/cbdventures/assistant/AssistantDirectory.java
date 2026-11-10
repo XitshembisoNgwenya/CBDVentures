@@ -40,6 +40,7 @@ public class AssistantDirectory {
     public static final List<Category> CATEGORIES = List.of(
             new Category("food", "Food & coffee", "food"),
             new Category("banking", "Banks & ATMs", "wallet"),
+            new Category("grooming", "Beauty & grooming", "salon"),
             new Category("fun", "Entertainment", "ticket"));
 
     public record Category(String id, String label, String iconKey) { }

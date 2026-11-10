@@ -122,7 +122,7 @@ public class AssistantService {
 
     public Reply respond(String question, List<Message> history, String viewerName) {
         String safe = question == null ? "" : question.replaceAll("\\s+", " ").trim();
-        if (safe.isEmpty()) return new Reply("Ask me about the listed food, coffee, banking and entertainment places, or directions from campus.", List.of(), "local", null);
+        if (safe.isEmpty()) return new Reply("Ask me about the listed food, coffee, banking, beauty and entertainment places, or directions from campus.", List.of(), "local", null);
 
         Optional<Reply> outOfArea = outOfAreaRequest(safe);
         if (outOfArea.isPresent()) return outOfArea.get();
@@ -152,14 +152,14 @@ public class AssistantService {
             String who = viewerName == null || viewerName.isBlank()
                     ? ""
                     : " " + viewerName.trim().split("\\s+")[0] + "!";
-            return new Reply("Hey" + who + " 👋 What are you looking for today — food or coffee, banking, entertainment, "
+            return new Reply("Hey" + who + " 👋 What are you looking for today — food or coffee, banking, beauty services, entertainment, "
                     + "or directions from Richfield?", List.of(), "local", null);
         }
         if (THANKS.matcher(safe).matches()) {
             return new Reply("You’re welcome! 😊 Anything else you want to find around campus?", List.of(), "local", null);
         }
         if (HELP.matcher(safe).matches()) {
-            return new Reply("I can help with the listed food, coffee, banking and entertainment places near Richfield. "
+            return new Reply("I can help with the listed food, coffee, banking, beauty and entertainment places near Richfield. "
                     + "Ask about a place, request walking directions from campus, or ask for a clearly labelled food-budget estimate.",
                     List.of(), "local", null);
         }
@@ -216,7 +216,7 @@ public class AssistantService {
             return new Reply(nearbyList(category, nearby, pending), listIds(category, nearby, pending), "local", null);
         }
 
-        return new Reply("I’m best at helping with the listed food, coffee, banking and entertainment places around Richfield Pretoria. "
+        return new Reply("I’m best at helping with the listed food, coffee, banking, beauty and entertainment places around Richfield Pretoria. "
                 + "Tell me what you’re looking for, or ask for walking directions from campus.",
                 List.of(), "local", null);
     }
@@ -434,6 +434,10 @@ public class AssistantService {
                     + "with reading and study areas. It also has a documented American Corner.";
             case "student:absa-building" -> "ABSA Building is listed in the student guide as a banking-related location "
                     + "in Pretoria Central. Bank and ATM services at that address still need confirmation.";
+            case "student:state-theatre" -> "The South African State Theatre is a performing-arts venue at 320 Pretorius Street. "
+                    + "Phone: 012 392 4000. Check the current programme and ticket details on statetheatre.co.za.";
+            case "student:container-4-et-beauty-salon" -> "Container 4 E&T is a beauty salon at 344 Francis Baard Street, Pretoria Central. "
+                    + "Current services and opening hours were not supplied.";
             default -> switch (place.category()) {
                 case "food" -> place.name() + " is one of the food options in the student directory.";
                 case "study" -> place.name() + " is a study option in the student directory.";
@@ -520,7 +524,7 @@ public class AssistantService {
                     + "from Richfield, 291 Helen Joseph Street.");
             if (!place.verificationNote().isBlank()) lines.add(place.verificationNote());
         } else {
-            lines.add("You can tap its card for the photo and directions from Richfield.");
+            lines.add("You can tap its card for available details and directions from Richfield.");
         }
         if (place.withinRadius()) {
             lines.add(place.distanceMeters() < 25
