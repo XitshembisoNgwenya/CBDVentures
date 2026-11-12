@@ -3,7 +3,7 @@
  * Reference layout: Pretoria CBD hero photo, wordmark, one primary action
  * (Sign In) and one secondary (Create Account).
  */
-import { icon } from '../ui.js?v=20261110-4';
+import { icon } from '../ui.js?v=20261112-1';
 
 const SEEN_KEY = 'cbd.welcomeSeen';
 
@@ -15,13 +15,17 @@ export async function renderWelcome(container) {
   container.innerHTML = `
     <div class="welcome">
       <div class="welcome__hero">
-        <img src="/images/pretoria-cbd-welcome.jpg?v=20261110-4" alt="Aerial view of Pretoria CBD"
+        <img src="/images/pretoria-cbd-welcome.jpg?v=20261112-1" alt="Aerial view of Pretoria CBD"
              width="526" height="526" fetchpriority="high" decoding="async">
       </div>
 
       <div>
         <h1 class="welcome__title">CBDVentures</h1>
         <p class="welcome__tag">Discover Pretoria Central</p>
+        <div class="nxg-credit welcome__nxg-credit">
+          <img class="nxg-mark" src="/images/nxg-logo.png?v=20261112-1" alt="NxG monogram">
+          <span>A project by NxG Technologies</span>
+        </div>
       </div>
 
       <div class="welcome__actions">
@@ -42,7 +46,7 @@ export async function renderWelcome(container) {
   heroImage.addEventListener('error', () => {
     if (heroImage.dataset.fallback) return;
     heroImage.dataset.fallback = '1';
-    heroImage.src = '/images/hero-welcome.svg?v=20261110-4';
+    heroImage.src = '/images/hero-welcome.svg?v=20261112-1';
     heroImage.alt = 'Illustration of the Union Buildings at dusk';
   });
 

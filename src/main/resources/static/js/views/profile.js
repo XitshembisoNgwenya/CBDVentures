@@ -2,9 +2,9 @@
  * Profile — the account screen, and the door to the owner and administrator
  * modules. The reference design keeps this as the fifth tab.
  */
-import { api, session, clearCache } from '../api.js?v=20261110-4';
-import { icon, escapeHtml, toast, openModal, closeModal } from '../ui.js?v=20261110-4';
-import { signOut, setState } from '../state.js?v=20261110-4';
+import { api, session, clearCache } from '../api.js?v=20261112-1';
+import { icon, escapeHtml, toast, openModal, closeModal } from '../ui.js?v=20261112-1';
+import { signOut, setState } from '../state.js?v=20261112-1';
 
 export async function renderProfile(container) {
   const user = session.user;

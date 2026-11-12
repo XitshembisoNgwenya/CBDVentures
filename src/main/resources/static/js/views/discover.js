@@ -1,10 +1,10 @@
 /**
  * Discover — the home feed, using the same verified directory as Explore.
  */
-import { api, session } from '../api.js?v=20261110-4';
-import { icon, escapeHtml, skeletonCards } from '../ui.js?v=20261110-4';
-import { placeCard } from './explore.js?v=20261110-4';
-import { addBusinessProfiles } from './place-profiles.js?v=20261110-4';
+import { api, session } from '../api.js?v=20261112-1';
+import { icon, escapeHtml, skeletonCards } from '../ui.js?v=20261112-1';
+import { placeCard } from './explore.js?v=20261112-1';
+import { addBusinessProfiles } from './place-profiles.js?v=20261112-1';
 
 const CATEGORY_ALIASES = {
   'food-drinks': 'food',
