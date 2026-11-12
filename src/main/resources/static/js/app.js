@@ -7,23 +7,23 @@
  *   • tabbed      — the five consumer screens;
  *   • portal      — owner, admin, reports and backup, reached from Profile.
  */
-import { api, session } from './api.js?v=20261110-4';
-import { hydrateIcons, icon, toast, closeModal } from './ui.js?v=20261110-4';
-import { parseRoute, setState, state, signOut } from './state.js?v=20261110-4';
-import { renderWelcome } from './views/welcome.js?v=20261110-4';
-import { renderSignIn, renderSignUp, renderVerify } from './views/auth.js?v=20261110-4';
-import { renderDiscover } from './views/discover.js?v=20261110-4';
-import { renderExplore } from './views/explore.js?v=20261110-4';
-import { renderBusiness } from './views/business.js?v=20261110-4';
-import { renderPlace } from './views/place.js?v=20261110-4';
-import { renderMap } from './views/map.js?v=20261110-4';
-import { renderAssistant } from './views/assistant.js?v=20261110-4';
-import { renderEvents } from './views/events.js?v=20261110-4';
-import { renderProfile } from './views/profile.js?v=20261110-4';
-import { renderOwner } from './views/owner.js?v=20261110-4';
-import { renderAdmin } from './views/admin.js?v=20261110-4';
-import { renderReports } from './views/reports.js?v=20261110-4';
-import { renderBackup } from './views/backup.js?v=20261110-4';
+import { api, session } from './api.js?v=20261112-1';
+import { hydrateIcons, icon, toast, closeModal } from './ui.js?v=20261112-1';
+import { parseRoute, setState, state, signOut } from './state.js?v=20261112-1';
+import { renderWelcome } from './views/welcome.js?v=20261112-1';
+import { renderSignIn, renderSignUp, renderVerify } from './views/auth.js?v=20261112-1';
+import { renderDiscover } from './views/discover.js?v=20261112-1';
+import { renderExplore } from './views/explore.js?v=20261112-1';
+import { renderBusiness } from './views/business.js?v=20261112-1';
+import { renderPlace } from './views/place.js?v=20261112-1';
+import { renderMap } from './views/map.js?v=20261112-1';
+import { renderAssistant } from './views/assistant.js?v=20261112-1';
+import { renderEvents } from './views/events.js?v=20261112-1';
+import { renderProfile } from './views/profile.js?v=20261112-1';
+import { renderOwner } from './views/owner.js?v=20261112-1';
+import { renderAdmin } from './views/admin.js?v=20261112-1';
+import { renderReports } from './views/reports.js?v=20261112-1';
+import { renderBackup } from './views/backup.js?v=20261112-1';
 
 const main = document.getElementById('main');
 const topbarAvatar = document.getElementById('topbar-avatar');
