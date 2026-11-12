@@ -1,5 +1,10 @@
 # CBDVentures — Pretoria CBD in Your Pocket
 
+<div align="center">
+  <img src="src/main/resources/static/images/nxg-logo.png" alt="NxG monogram" width="88">
+  <br><strong>A project by NxG Technologies</strong>
+</div>
+
 CBDVentures is a mobile-first guide and local discovery platform for students, residents and visitors in Pretoria Central. It brings together place discovery, a student-focused assistant, maps, events and tools for local business owners.
 
 **Live demo:** [cbdventures-final-project.onrender.com](https://cbdventures-final-project.onrender.com)  
@@ -79,8 +84,8 @@ The frontend is served by the Spring Boot application. No Node.js installation o
 Clone the repository, open a terminal in its root folder and run:
 
 ```bash
-git clone https://github.com/XitshembisoNgwenya/cbdventures-final-project.git
-cd cbdventures-final-project
+git clone https://github.com/XitshembisoNgwenya/CBDVentures.git
+cd CBDVentures
 ./mvnw spring-boot:run
 ```
 
