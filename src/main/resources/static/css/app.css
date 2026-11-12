@@ -1260,3 +1260,44 @@ input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(.7); }
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+.nxg-mark {
+  display: block;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  padding: 3px;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.topbar__brand .nxg-mark {
+  width: 24px;
+  height: 24px;
+  margin-left: 2px;
+  padding: 2px;
+}
+.nxg-credit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.3;
+}
+.welcome__nxg-credit { margin-top: 10px; }
+.auth__nxg-credit { margin-top: 4px; }
+
+@media (max-width: 360px) {
+  .topbar { padding-left: 12px; padding-right: 12px; }
+  .topbar__brand { gap: 7px; }
+  .topbar__brand .nxg-mark {
+    width: 20px;
+    height: 20px;
+    margin-left: 0;
+    padding: 1px;
+  }
+  .topbar__actions { gap: 5px; }
+}
