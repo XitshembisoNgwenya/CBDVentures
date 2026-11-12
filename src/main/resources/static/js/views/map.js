@@ -2,10 +2,10 @@
  * Map — every live listing plotted inside the 1 km pilot ring, with a scrollable
  * list underneath so the screen is usable without colour vision or a big screen.
  */
-import { api } from '../api.js?v=20261112-1';
-import { icon, escapeHtml, distanceText, priceSymbols, skeletonCards } from '../ui.js?v=20261112-1';
-import { state } from '../state.js?v=20261112-1';
-import { mountOpenStreetMap } from '../map-widget.js?v=20261112-1';
+import { api } from '../api.js?v=20261110-4';
+import { icon, escapeHtml, distanceText, priceSymbols, skeletonCards } from '../ui.js?v=20261110-4';
+import { state } from '../state.js?v=20261110-4';
+import { mountOpenStreetMap } from '../map-widget.js?v=20261110-4';
 
 const MAP_CATEGORIES = [
   { id: 'food-drinks', label: 'Food & Drinks' },

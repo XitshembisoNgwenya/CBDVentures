@@ -10,7 +10,7 @@
   <link rel="icon" href="/images/logo-dark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/images/logo-dark.svg">
   <link rel="manifest" href="/manifest.webmanifest">
-  <script src="/js/theme-preload.js?v=20261112-1"></script>
+  <script src="/js/theme-preload.js?v=20261110-4"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -20,7 +20,7 @@
       }, { once: true });
     }
   </script>
-  <link rel="stylesheet" href="/css/app.css?v=20261112-1">
+  <link rel="stylesheet" href="/css/app.css?v=20261110-4">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -36,10 +36,9 @@
   <div class="app" id="app">
     <!-- Compact top bar; on welcome and auth screens it keeps only the theme switch. -->
     <header class="topbar" id="topbar">
-      <a class="topbar__brand" href="#/" aria-label="CBDVentures home — a project by NxG Technologies">
+      <a class="topbar__brand" href="#/" aria-label="CBDVentures home">
         <img src="/images/logo-dark.svg" alt="" width="32" height="32">
         <span>CBDVentures</span>
-        <img class="nxg-mark topbar__nxg" src="/images/nxg-logo.png?v=20261112-1" alt="NxG monogram" width="24" height="24">
       </a>
       <div class="topbar__actions">
         <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch to light mode" aria-pressed="false">
@@ -72,6 +71,6 @@
   <div id="toast-stack" class="toast-host" aria-live="polite" aria-atomic="true"></div>
   <div id="modal-root"></div>
 
-  <script type="module" src="/js/app.js?v=20261112-1"></script>
+  <script type="module" src="/js/app.js?v=20261110-4"></script>
 </body>
 </html>

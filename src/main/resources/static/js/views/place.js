@@ -1,6 +1,6 @@
-import { api } from '../api.js?v=20261112-1';
-import { icon, escapeHtml, distanceText } from '../ui.js?v=20261112-1';
-import { addBusinessProfiles } from './place-profiles.js?v=20261112-1';
+import { api } from '../api.js?v=20261110-4';
+import { icon, escapeHtml, distanceText } from '../ui.js?v=20261110-4';
+import { addBusinessProfiles } from './place-profiles.js?v=20261110-4';
 
 export async function renderPlace(container, id) {
   if (!id) { location.hash = '#/explore'; return; }

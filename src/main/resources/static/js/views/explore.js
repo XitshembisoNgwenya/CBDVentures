@@ -1,9 +1,9 @@
 /**
  * Explore — browse the same curated places used by the chatbot.
  */
-import { api } from '../api.js?v=20261112-1';
-import { icon, escapeHtml, skeletonCards } from '../ui.js?v=20261112-1';
-import { addBusinessProfiles, placeDetailsHref } from './place-profiles.js?v=20261112-1';
+import { api } from '../api.js?v=20261110-4';
+import { icon, escapeHtml, skeletonCards } from '../ui.js?v=20261110-4';
+import { addBusinessProfiles, placeDetailsHref } from './place-profiles.js?v=20261110-4';
 
 const SORTS = [
   { key: 'closest', label: 'Closest' },

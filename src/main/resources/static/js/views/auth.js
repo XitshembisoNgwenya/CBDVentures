@@ -4,9 +4,9 @@
  * reference design, and all three talk to the real API — registration returns a
  * code, verification returns the JWT.
  */
-import { api, session } from '../api.js?v=20261112-1';
-import { icon, toast, openModal, closeModal, escapeHtml } from '../ui.js?v=20261112-1';
-import { setState } from '../state.js?v=20261112-1';
+import { api, session } from '../api.js?v=20261110-4';
+import { icon, toast, openModal, closeModal, escapeHtml } from '../ui.js?v=20261110-4';
+import { setState } from '../state.js?v=20261110-4';
 
 /** Where to go after a successful sign-in. */
 function nextTarget(params) {
@@ -47,13 +47,6 @@ function showError(node, message) {
   node.hidden = false;
 }
 
-function nxgProjectCredit() {
-  return `<div class="nxg-credit auth__nxg-credit">
-    <img class="nxg-mark" src="/images/nxg-logo.png?v=20261112-1" alt="NxG monogram">
-    <span>A project by NxG Technologies</span>
-  </div>`;
-}
-
 /* ------------------------------------------------------------------ sign in */
 
 export async function renderSignIn(container, params = {}) {
@@ -70,7 +63,6 @@ export async function renderSignIn(container, params = {}) {
       <div class="auth__head">
         <h1 class="auth__title">Welcome Back</h1>
         <p class="auth__sub">Sign in to continue exploring Pretoria Central</p>
-        ${nxgProjectCredit()}
         ${session.isSignedIn ? `<p class="field__hint" style="margin-top:10px">
           This tab is currently signed in as <strong>${escapeHtml(session.user?.fullName || session.user?.email || 'another account')}</strong>.
           <button class="btn--link" type="button" id="switch-account">Use a different account</button>
@@ -201,7 +193,6 @@ export async function renderSignUp(container) {
       <div class="auth__head">
         <h1 class="auth__title">Create Profile</h1>
         <p class="auth__sub">Join our explorer community today</p>
-        ${nxgProjectCredit()}
       </div>
 
       <form class="auth__body" id="signup-form" novalidate>
@@ -325,7 +316,6 @@ export async function renderVerify(container, params = {}) {
         <h1 class="auth__title" style="font-size:1.7rem">Verify Your Email</h1>
         <p class="auth__sub">We sent a 6-digit verification code<br>to your email address
           <strong style="color:var(--ink)">${escapeHtml(email || 'your inbox')}</strong></p>
-        ${nxgProjectCredit()}
       </div>
 
       ${demoCode ? `<div class="notice notice--info small">

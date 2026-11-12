@@ -4,9 +4,9 @@
  * offline use. Public API GETs may use a saved response when offline; requests
  * carrying a user's bearer token are never put in the shared cache.
  */
-const SHELL_CACHE = 'cbdventures-shell-v9';
-const DATA_CACHE = 'cbdventures-data-v9';
-const APP_VERSION = '20261112-1';
+const SHELL_CACHE = 'cbdventures-shell-v8';
+const DATA_CACHE = 'cbdventures-data-v8';
+const APP_VERSION = '20261110-4';
 
 const SHELL_ASSETS = [
   '/',
@@ -34,10 +34,9 @@ const SHELL_ASSETS = [
   `/js/views/auth.js?v=${APP_VERSION}`,
   `/js/views/welcome.js?v=${APP_VERSION}`,
   '/images/logo-dark.svg',
-  `/images/nxg-logo.png?v=${APP_VERSION}`,
   '/images/hero.svg',
   `/images/hero-welcome.svg?v=${APP_VERSION}`,
-  '/images/pretoria-cbd-welcome.jpg?v=20261112-1',
+  '/images/pretoria-cbd-welcome.jpg?v=20261110-4',
   '/images/favicon.svg',
   '/images/icons/app-icon.svg',
   '/manifest.webmanifest'

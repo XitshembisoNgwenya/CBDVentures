@@ -1,4 +1,4 @@
-import { api } from '../api.js?v=20261112-1';
+import { api } from '../api.js?v=20261110-4';
 
 const PROFILE_ALIASES = {
   'student:xpresso': ['Xpresso Café'],

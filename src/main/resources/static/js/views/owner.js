@@ -1,10 +1,10 @@
 /** Business owner portal (FR-03): create, edit and manage listings and events. */
-import { api, session } from '../api.js?v=20261112-1';
+import { api, session } from '../api.js?v=20261110-4';
 import {
   closeModal, confirmDialog, escapeHtml, emptyState, formatDateTime, icon, openModal,
   statusBadge, toast
-} from '../ui.js?v=20261112-1';
-import { setState, state } from '../state.js?v=20261112-1';
+} from '../ui.js?v=20261110-4';
+import { setState, state } from '../state.js?v=20261110-4';
 // The dark client shows sign-in as a full screen route, not a modal.
 const openAuthModal = (mode = 'signin') => { location.hash = mode === 'register' ? '#/signup' : '#/signin'; };
 
